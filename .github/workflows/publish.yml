@@ -29,3 +29,15 @@ setup:
           fi
         fi
 
+
+
+# api job, responsible for handling all aspects related to the API, 
+# including executing automated tests and publishing artifacts if 
+# necessary (when publish is true).
+api:
+  needs: [setup]
+  uses: ./.github/workflows/api.yml
+  with:
+    publish: ${{ needs.setup.outputs.publish }}
+
+
