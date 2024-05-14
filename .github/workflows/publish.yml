@@ -41,3 +41,14 @@ api:
     publish: ${{ needs.setup.outputs.publish }}
 
 
+# final step of this workflow simulate the publishing process. In reality, 
+# this could involve publishing a Docker image to a Docker registry
+infra:
+  needs: [api, setup]
+  if: needs.setup.outputs.open_infra_pr == 'true'
+  uses: ./.github/workflows/infra.yml
+  secrets:
+    GITOPS_DEMO_BOT_GITHUB_TOKEN: ${{ secrets.GITOPS_DEMO_BOT_GITHUB_TOKEN }}
+
+
+
