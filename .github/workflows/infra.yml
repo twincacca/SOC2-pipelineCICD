@@ -18,7 +18,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITOPS_DEMO_BOT_GITHUB_TOKEN }}
         run: |
           echo "Opening PR in infra repo to update dev to $GITHUB_SHA"
-          TAG=$GITHUB_SHA bash scripts/open_infra_pr.sh
+          TAG=$GITHUB_SHA bash scripts/open_infra_pr.sh # this opens and merges a pull request in the infra repo with the help of a bot
 
 
           
