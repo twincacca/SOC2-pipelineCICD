@@ -1,0 +1,24 @@
+name: Infra
+
+on:
+  workflow_call:
+    secrets:
+      GITOPS_DEMO_BOT_GITHUB_TOKEN:
+        required: true
+
+jobs:
+  infra:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Open Infra PR
+        env:
+          GH_TOKEN: ${{ secrets.GITOPS_DEMO_BOT_GITHUB_TOKEN }}
+        run: |
+          echo "Opening PR in infra repo to update dev to $GITHUB_SHA"
+          TAG=$GITHUB_SHA bash scripts/open_infra_pr.sh
+
+
+          
