@@ -1,0 +1,12 @@
+name: Main
+
+on:
+  pull_request:
+    branches:
+      - main
+      - hotfixes/*
+
+  push:
+    branches:
+      - main
+      - hotfixes/*
