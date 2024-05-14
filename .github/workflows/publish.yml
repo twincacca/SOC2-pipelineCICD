@@ -10,3 +10,22 @@ on:
     branches:
       - main
       - hotfixes/*
+
+# configure two variables (open_infra_pr & publish) based on the context:
+setup:
+  runs-on: ubuntu-22.04
+  outputs:
+    open_infra_pr: ${{ steps.setup.outputs.open_infra_pr }}
+    publish: ${{ steps.setup.outputs.publish }}
+  steps:
+    - name: Setup
+      id: setup
+      run: |
+        if [[ "${{ github.event_name }}" == "push" ]]; then
+          echo "publish=true" >> "$GITHUB_OUTPUT"
+
+          if [[ ${{ github.ref }} == refs/heads/main ]]; then
+            echo "open_infra_pr=true" >> "$GITHUB_OUTPUT"
+          fi
+        fi
+
